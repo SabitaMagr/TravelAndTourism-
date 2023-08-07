@@ -14,7 +14,7 @@ public  class Splash extends JFrame implements Runnable {
 		JLabel img = new JLabel(img3);
 		add(img);
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set close operation
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set close operation
 		setVisible(true);
 		thread=new Thread(this);
 		thread.start();
@@ -22,8 +22,8 @@ public  class Splash extends JFrame implements Runnable {
 	
 	public void run () {
 		try {
-			Thread.sleep(7000);
-//			new Login();
+			Thread.sleep(6000);
+			new Login();
 			setVisible(false);
 		}catch(Exception e) {}
 		
