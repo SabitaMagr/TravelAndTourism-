@@ -1,10 +1,16 @@
 package travelAndTourism;
 
 import javax.swing.*;
+import java.sql.ResultSet;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 import javax.swing.border.*;
 
-public class Login extends JFrame {
+public class Login extends JFrame implements ActionListener {
+	JTextField tfUsername, tfPassword;
+	JButton login, signUp;
 
 	Login() {
 		setSize(700, 400);
@@ -36,8 +42,9 @@ public class Login extends JFrame {
 		lblUserName.setFont(new Font("SAN SERIF", Font.PLAIN, 18));
 		p2.add(lblUserName);
 
-		JTextField tfUsername = new JTextField();
+		tfUsername = new JTextField();
 		tfUsername.setBounds(80, 50, 200, 30);
+		tfUsername.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		tfUsername.setBorder(BorderFactory.createEmptyBorder());
 		p2.add(tfUsername);
 
@@ -47,36 +54,72 @@ public class Login extends JFrame {
 		lblPassword.setFont(new Font("SAN SERIF", Font.PLAIN, 18));
 		p2.add(lblPassword);
 
-		JTextField tfPassword = new JTextField();
+		tfPassword = new JTextField();
 		tfPassword.setBounds(80, 120, 200, 30);
+		tfPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		tfPassword.setBorder(BorderFactory.createEmptyBorder());
 		p2.add(tfPassword);
 //For BUtton 
-		JButton login=new JButton("Login");
-		login.setBounds(80,175,90,36);
+		login = new JButton("Login");
+		login.setBounds(80, 175, 90, 36);
 		login.setFont(new Font("SAN SERIF", Font.PLAIN, 18));
-		login.setBackground(new Color(133,193,233));
+		login.setBackground(new Color(133, 193, 233));
 		login.setForeground(Color.WHITE);
-		login.setBorder(new LineBorder(new Color(133,193,233)));
+		login.setBorder(new LineBorder(new Color(133, 193, 233)));
 		p2.add(login);
-		
-		JButton signUp=new JButton("Sign Up");
-		signUp.setBounds(190,175,90,36);
+
+		signUp = new JButton("Sign Up");
+		signUp.setBounds(190, 175, 90, 36);
 		signUp.setFont(new Font("SAN SERIF", Font.PLAIN, 18));
-		signUp.setBackground(new Color(133,193,233));
+		signUp.setBackground(new Color(133, 193, 233));
 		signUp.setForeground(Color.WHITE);
-		signUp.setBorder(new LineBorder(new Color(133,193,233)));
+		signUp.setBorder(new LineBorder(new Color(133, 193, 233)));
 		p2.add(signUp);
-		
-		JButton forgetPsw=new JButton("Forget Password");
-		forgetPsw.setBounds(109,225,150,36);
+
+		JButton forgetPsw = new JButton("Forget Password");
+		forgetPsw.setBounds(109, 225, 150, 36);
 		forgetPsw.setFont(new Font("SAN SERIF", Font.PLAIN, 18));
-		forgetPsw.setBackground(new Color(133,193,233));
+		forgetPsw.setBackground(new Color(133, 193, 233));
 		forgetPsw.setForeground(Color.WHITE);
-		forgetPsw.setBorder(new LineBorder(new Color(133,193,233)));
+		forgetPsw.setBorder(new LineBorder(new Color(133, 193, 233)));
 		p2.add(forgetPsw);
-		
+
 		setVisible(true);
+	}
+
+	public void actionPerformed(ActionEvent ae) {
+		if (ae.getSource() == login) {
+			String username = tfUsername.getText();
+			String password = tfPassword.getText();
+			if (username.isEmpty() || password.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Please enter username and password !!!");
+			} else {
+				String query = "select password from user where password='" + username + "' ";
+				try {
+					Conn c = new Conn();
+					ResultSet resultSet = c.s.executeQuery(query);
+					if (resultSet.next()) {
+						String psw = resultSet.getString("password");
+
+						if (password.equals(psw)) {
+							JOptionPane.showMessageDialog(null, "Login successful!");
+							setVisible(false);
+							// new AdminDashboard();
+						} else {
+							JOptionPane.showMessageDialog(null, "Incorrect username or password!");
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "User not found!");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else if (ae.getSource() == signUp) {
+			setVisible(false);
+			new SignUp();
+		}
+
 	}
 
 	public static void main(String[] args) {

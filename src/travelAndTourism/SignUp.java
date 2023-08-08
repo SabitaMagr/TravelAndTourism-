@@ -2,7 +2,8 @@ package travelAndTourism;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SignUp extends JFrame implements ActionListener {
 	JButton create, back;
@@ -27,6 +28,7 @@ public class SignUp extends JFrame implements ActionListener {
 
 		tfUsername = new JTextField();
 		tfUsername.setBounds(180, 35, 250, 27);
+		tfUsername.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		tfUsername.setBorder(BorderFactory.createEmptyBorder());
 		p1.add(tfUsername);
 
@@ -37,6 +39,7 @@ public class SignUp extends JFrame implements ActionListener {
 
 		tfName = new JTextField();
 		tfName.setBounds(180, 80, 250, 27);
+		tfName.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		tfName.setBorder(BorderFactory.createEmptyBorder());
 		p1.add(tfName);
 
@@ -47,11 +50,12 @@ public class SignUp extends JFrame implements ActionListener {
 
 		tfPassword = new JTextField();
 		tfPassword.setBounds(180, 125, 250, 27);
+		tfPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		tfPassword.setBorder(BorderFactory.createEmptyBorder());
 		p1.add(tfPassword);
 
-		JLabel lblSecurity = new JLabel("Security Questions");
-		lblSecurity.setBounds(50, 170, 100, 25);
+		JLabel lblSecurity = new JLabel("Security Ques");
+		lblSecurity.setBounds(50, 170, 120, 25);
 		lblSecurity.setFont(new Font("Tahoma", Font.BOLD, 15));
 		p1.add(lblSecurity);
 
@@ -70,6 +74,7 @@ public class SignUp extends JFrame implements ActionListener {
 
 		tfAnswer = new JTextField();
 		tfAnswer.setBounds(180, 210, 250, 27);
+		tfAnswer.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		tfAnswer.setBorder(BorderFactory.createEmptyBorder());
 		p1.add(tfAnswer);
 
@@ -118,25 +123,23 @@ public class SignUp extends JFrame implements ActionListener {
 			String password = tfPassword.getText();
 			String Secques = security.getSelectedItem();
 			String userRole = role.getSelectedItem();
-			char isAdmin;
-			if ("Admin".equals(userRole)) {
-				isAdmin = 'Y';
+			if (username.isEmpty() || name.isEmpty() || answer.isEmpty() || password.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Please fill out all fields!!");
 			} else {
-				isAdmin = 'N';
+				char isAdmin = userRole.equals("Admin") ? 'Y' : 'N';
+				char status = 'E';
+				String query = "INSERT INTO user (username, name, password, securityQues, answer) VALUES ('" + username
+						+ "','" + name + "','" + password + "','" + Secques + "','" + answer + "')";
+				try {
+					Conn c = new Conn();
+					c.s.executeUpdate(query);
+					JOptionPane.showMessageDialog(null, "User Created Successfully!!");
+					setVisible(false);
+					new Login();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-			char status = 'E';
-			String query="Insert into user values ('"+username+"','"+name+"','"+password+"','"+Secques+"',
-					'"+answer+"','"+isAdmin+"','"+status+"')";
-			try{
-				Conn c=new Conn();
-				c.s.executeUpdate(query);
-				JOptionPane.showMessageDialog(null,"User Created Successfully!!");\
-				setVisible(false);
-				new Login();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-						
 		} else if (ae.getSource() == back) {
 			setVisible(false);
 			new Login();
