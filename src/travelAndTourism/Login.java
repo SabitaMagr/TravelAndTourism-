@@ -10,14 +10,21 @@ import javax.swing.border.*;
 
 public class Login extends JFrame implements ActionListener {
 	JTextField tfUsername, tfPassword;
-	JButton login, signUp;
+	JButton login, signUp, forgetPsw;
 
 	Login() {
+		setTitle("Login");
 		setSize(700, 400);
 		setLocation(310, 200);
 		setLayout(null);
 
 		getContentPane().setBackground(Color.WHITE);
+
+		JLabel loginTitle = new JLabel("Login");
+		loginTitle.setBounds(300, 0, 355, 35); 
+		loginTitle.setFont(new Font("SAN SERIF", Font.BOLD, 30));
+		loginTitle.setHorizontalAlignment(JLabel.CENTER);
+		add(loginTitle);
 //for left side
 		JPanel p1 = new JPanel();
 		p1.setBackground(new Color(131, 193, 233));
@@ -36,6 +43,7 @@ public class Login extends JFrame implements ActionListener {
 		p2.setLayout(null);
 		p2.setBounds(300, 35, 355, 280);
 		add(p2);
+
 //For UserName
 		JLabel lblUserName = new JLabel("Username");
 		lblUserName.setBounds(80, 20, 100, 25);
@@ -70,20 +78,23 @@ public class Login extends JFrame implements ActionListener {
 
 		signUp = new JButton("Sign Up");
 		signUp.setBounds(190, 175, 90, 36);
-		signUp.setFont(new Font("SAN SERIF", Font.PLAIN, 18));
+		signUp.setFont(new Font("SAN SERIF", Font.PLAIN, 16));
 		signUp.setBackground(new Color(133, 193, 233));
 		signUp.setForeground(Color.WHITE);
 		signUp.setBorder(new LineBorder(new Color(133, 193, 233)));
 		p2.add(signUp);
 
-		JButton forgetPsw = new JButton("Forget Password");
+		forgetPsw = new JButton("Forget Password");
 		forgetPsw.setBounds(109, 225, 150, 36);
-		forgetPsw.setFont(new Font("SAN SERIF", Font.PLAIN, 18));
+		forgetPsw.setFont(new Font("SAN SERIF", Font.PLAIN, 16));
 		forgetPsw.setBackground(new Color(133, 193, 233));
 		forgetPsw.setForeground(Color.WHITE);
 		forgetPsw.setBorder(new LineBorder(new Color(133, 193, 233)));
 		p2.add(forgetPsw);
 
+		login.addActionListener(this);
+		signUp.addActionListener(this);
+		forgetPsw.addActionListener(this);
 		setVisible(true);
 	}
 
@@ -94,14 +105,14 @@ public class Login extends JFrame implements ActionListener {
 			if (username.isEmpty() || password.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Please enter username and password !!!");
 			} else {
-				String query = "select password from user where password='" + username + "' ";
+				String query = "select password from user where username='" + username + "' ";
 				try {
 					Conn c = new Conn();
 					ResultSet resultSet = c.s.executeQuery(query);
 					if (resultSet.next()) {
 						String psw = resultSet.getString("password");
 
-						if (password.equals(psw)) {
+						if (password.equals(psw.trim())) {
 							JOptionPane.showMessageDialog(null, "Login successful!");
 							setVisible(false);
 							// new AdminDashboard();
@@ -118,6 +129,9 @@ public class Login extends JFrame implements ActionListener {
 		} else if (ae.getSource() == signUp) {
 			setVisible(false);
 			new SignUp();
+		} else if (ae.getSource() == forgetPsw) {
+			setVisible(false);
+//			new ForgetPassword();
 		}
 
 	}
