@@ -21,7 +21,7 @@ public class Login extends JFrame implements ActionListener {
 		getContentPane().setBackground(Color.WHITE);
 
 		JLabel loginTitle = new JLabel("Login");
-		loginTitle.setBounds(300, 0, 355, 35); 
+		loginTitle.setBounds(300, 0, 355, 35);
 		loginTitle.setFont(new Font("SAN SERIF", Font.BOLD, 30));
 		loginTitle.setHorizontalAlignment(JLabel.CENTER);
 		add(loginTitle);
@@ -105,17 +105,16 @@ public class Login extends JFrame implements ActionListener {
 			if (username.isEmpty() || password.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Please enter username and password !!!");
 			} else {
-				String query = "select password from user where username='" + username + "' ";
+				String query = "select * from user where username='" + username + "' and password='" + password + "' ";
 				try {
 					Conn c = new Conn();
 					ResultSet resultSet = c.s.executeQuery(query);
 					if (resultSet.next()) {
 						String psw = resultSet.getString("password");
-
 						if (password.equals(psw.trim())) {
 							JOptionPane.showMessageDialog(null, "Login successful!");
 							setVisible(false);
-							// new AdminDashboard();
+							new Loading(username);
 						} else {
 							JOptionPane.showMessageDialog(null, "Incorrect username or password!");
 						}

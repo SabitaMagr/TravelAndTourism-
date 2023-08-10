@@ -17,9 +17,9 @@ public class ForgetPassword extends JFrame implements ActionListener {
 		setSize(550, 300);
 		setLocation(400, 200);
 		setLayout(null);
-		
+
 		JLabel chngeTitle = new JLabel("Forget Password");
-		chngeTitle.setBounds(85, 20, 355, 30); 
+		chngeTitle.setBounds(85, 20, 355, 30);
 		chngeTitle.setFont(new Font("SAN SERIF", Font.BOLD, 30));
 		chngeTitle.setHorizontalAlignment(JLabel.CENTER);
 		add(chngeTitle);
@@ -48,7 +48,36 @@ public class ForgetPassword extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent ae) {
+		if (ae.getSource() == btnChangePsw) {
+			String email = tfEmail.getText();
+			int userId = 0;
+			if (email.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Please enter your email !!!");
+			} else {
+				String query = "select userId,(case when userId is not null then 'true' else 'false' end) as valid_user from user where  email='"
+						+ email + "'and status='E' ";
+				try {
+					Conn c = new Conn();
+					ResultSet resultSet = c.s.executeQuery(query);
+					if (resultSet.next()) {
+						String validUser = resultSet.getString("valid_user");
+						userId = resultSet.getInt("userId");
 
+						if (validUser.equals("Y ")) {
+							JOptionPane.showMessageDialog(null, "Valid Email!!!");
+							setVisible(false);
+							new ChangePassword(userId);
+
+						} else {
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "User not found!");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	public static void main(String[] args) {
