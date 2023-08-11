@@ -6,15 +6,12 @@ import java.awt.*;
 public  class Splash extends JFrame implements Runnable {
 	Thread thread;
 	Splash() {
-//        setSize(1000, 500);
-//        setLocation(180, 100);
-		ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("image/Screenshot (107).png"));
-		Image img2 = image.getImage().getScaledInstance(1200, 600, Image.SCALE_DEFAULT);
+		ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("image/splash.jpg"));
+		Image img2 = image.getImage().getScaledInstance(1200, 500, Image.SCALE_DEFAULT);
 		ImageIcon img3 = new ImageIcon(img2);
 		JLabel img = new JLabel(img3);
 		add(img);
 
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set close operation
 		setVisible(true);
 		thread=new Thread(this);
 		thread.start();

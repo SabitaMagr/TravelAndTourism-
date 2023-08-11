@@ -32,11 +32,11 @@ public class Login extends JFrame implements ActionListener {
 		p1.setLayout(null);
 		add(p1);
 
-		ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("image/Screenshot (109).png"));
-		Image i2 = i1.getImage().getScaledInstance(700, 200, Image.SCALE_DEFAULT);
+		ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("image/login.png"));
+		Image i2 = i1.getImage().getScaledInstance(200, 230, Image.SCALE_DEFAULT);
 		ImageIcon i3 = new ImageIcon(i2);
 		JLabel image = new JLabel(i3);
-		image.setBounds(60, 60, 200, 230);
+		image.setBounds(50, 30, 200, 300);
 		p1.add(image);
 //For Right Side
 		JPanel p2 = new JPanel();
@@ -136,7 +136,7 @@ public class Login extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		Login l = new Login();
+		 new Login();
 	}
 
 }
