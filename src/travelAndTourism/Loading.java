@@ -1,12 +1,9 @@
 package travelAndTourism;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 public class Loading extends JFrame implements Runnable {
 	Thread t;
