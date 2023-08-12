@@ -57,6 +57,9 @@ public class ChangePassword extends JFrame implements ActionListener {
 		btnSave.setForeground(Color.WHITE);
 		btnSave.setBorder(new LineBorder(new Color(133, 193, 233)));
 		add(btnSave);
+		
+		btnSave.addActionListener(this);
+
 
 		setVisible(true);
 	}

@@ -8,7 +8,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AdminDashboard extends JFrame {
+public class AdminDashboard extends JFrame implements ActionListener {
+	JButton btnUserDtl, btnPackage, btnHotel, btnDestination;
 
 	AdminDashboard() {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -39,7 +40,7 @@ public class AdminDashboard extends JFrame {
 		p2.setBounds(0, 45, 230, 690);
 		add(p2);
 
-		JButton btnUserDtl = new JButton("User Details");
+		btnUserDtl = new JButton("User Details");
 		btnUserDtl.setBounds(0, 30, 229, 40);
 		btnUserDtl.setForeground(Color.WHITE);
 		btnUserDtl.setBackground(new Color(0, 0, 102));
@@ -48,7 +49,7 @@ public class AdminDashboard extends JFrame {
 		btnUserDtl.setFocusable(false);
 		p2.add(btnUserDtl);
 
-		JButton btnPackage = new JButton("Package");
+		btnPackage = new JButton("Package");
 		btnPackage.setBounds(0, 70, 229, 40);
 		btnPackage.setForeground(Color.WHITE);
 		btnPackage.setBackground(new Color(0, 0, 102));
@@ -57,7 +58,7 @@ public class AdminDashboard extends JFrame {
 		btnPackage.setFocusable(false);
 		p2.add(btnPackage);
 
-		JButton btnHotel = new JButton("Hotel");
+		btnHotel = new JButton("Hotel");
 		btnHotel.setBounds(0, 110, 229, 40);
 		btnHotel.setForeground(Color.WHITE);
 		btnHotel.setBackground(new Color(0, 0, 102));
@@ -66,7 +67,7 @@ public class AdminDashboard extends JFrame {
 		btnHotel.setFocusable(false);
 		p2.add(btnHotel);
 
-		JButton btnDestination = new JButton("Destination");
+		btnDestination = new JButton("Destination");
 		btnDestination.setBounds(0, 150, 229, 40);
 		btnDestination.setForeground(Color.WHITE);
 		btnDestination.setBackground(new Color(0, 0, 102));
@@ -83,15 +84,33 @@ public class AdminDashboard extends JFrame {
 		add(image);
 
 		JLabel text = new JLabel("Travel and Tourism Management System");
-		text.setBounds(300, 80, 1000, 70);
+		text.setBounds(300, 70, 1000, 70);
 		text.setForeground(Color.WHITE);
 		text.setFont(new Font("Raleway", Font.BOLD, 35));
 		text.setHorizontalAlignment(JLabel.CENTER);
 		image.add(text);
-		
+
+		btnUserDtl.addActionListener(this);
+		btnDestination.addActionListener(this);
+		btnPackage.addActionListener(this);
+		btnHotel.addActionListener(this);
+
 		setVisible(true);
 	}
-
+	public void actionPerformed(ActionEvent ae) {
+		if (ae.getSource() == btnUserDtl) {
+			new User();
+		}
+		else if (ae.getSource() == btnDestination) {
+			new User();
+		}
+		else if (ae.getSource() == btnPackage) {
+			new User();
+		}
+		else if (ae.getSource() == btnHotel) {
+			new User();
+		}
+	}
 	public static void main(String[] args) {
 		new AdminDashboard();
 	}

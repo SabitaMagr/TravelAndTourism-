@@ -42,7 +42,9 @@ public class ForgetPassword extends JFrame implements ActionListener {
 		btnChangePsw.setForeground(Color.WHITE);
 		btnChangePsw.setBorder(new LineBorder(new Color(133, 193, 233)));
 		add(btnChangePsw);
+		btnChangePsw.addActionListener(this);
 
+		
 		setVisible(true);
 
 	}
